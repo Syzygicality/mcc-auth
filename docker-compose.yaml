@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    command: start-dev
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      - auth-net
+
+  api:
+    build: .
+    container_name: fastapi
+    ports:
+      - "8000:8000"
+    environment:
+      KEYCLOAK_URL: http://keycloak:8080
+      KEYCLOAK_REALM: myrealm
+      KEYCLOAK_CLIENT_ID: fastapi
+    depends_on:
+      - keycloak
+    networks:
+      - auth-net
+
+volumes:
+  keycloak_data:
+
+networks:
+  auth-net:
