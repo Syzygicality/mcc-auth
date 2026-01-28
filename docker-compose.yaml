@@ -15,22 +15,40 @@ services:
     networks:
       - auth-net
 
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - auth-net
+
   api:
     build: .
     container_name: fastapi
     ports:
       - "8000:8000"
+    env_file:
+      - .env
     environment:
       KEYCLOAK_URL: http://keycloak:8080
       KEYCLOAK_REALM: myrealm
       KEYCLOAK_CLIENT_ID: fastapi
     depends_on:
       - keycloak
+      - postgres
     networks:
       - auth-net
 
 volumes:
   keycloak_data:
+  postgres_data:
 
 networks:
   auth-net:
