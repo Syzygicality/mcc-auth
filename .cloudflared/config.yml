@@ -1,0 +1,10 @@
+# Tunnel ID and public hostname are environment-specific — substitute the real
+# values on the server. The matching <TUNNEL_ID>.json credentials file holds the
+# tunnel secret and is never committed.
+tunnel: <TUNNEL_ID>
+credentials-file: /data/data/com.termux/files/home/.cloudflared/<TUNNEL_ID>.json
+
+ingress:
+  - hostname: <PUBLIC_HOSTNAME>
+    service: http://localhost:8080
+  - service: http_status:404

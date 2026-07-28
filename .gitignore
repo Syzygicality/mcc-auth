@@ -1,0 +1,27 @@
+# Real secrets — never commit
+secrets.env
+.cloudflared/*.json
+.cloudflared/cert.pem
+# SSH identity, access control and network topology — not mirrored at all
+.ssh/
+
+# Runtime state, not configuration
+sv/*/supervise/
+sv/*/log/supervise/
+logs/
+
+# Vendored distributions and caches (mirrored server has these, repo does not)
+keycloak/bin/
+keycloak/lib/
+keycloak/data/
+keycloak/providers/*.jar
+.cargo/
+.cache/
+.vscode-server/
+
+# Shell / tool history
+.bash_history
+.psql_history
+.viminfo
+.wget-hsts
+.termux_authinfo

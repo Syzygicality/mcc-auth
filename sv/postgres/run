@@ -1,0 +1,2 @@
+#!/data/data/com.termux/files/usr/bin/bash
+exec postgres -D $PREFIX/var/lib/postgresql 2>/data/data/com.termux/files/home/logs/postgres/postgres.log

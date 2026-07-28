@@ -1,0 +1,10 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# Credentials are sourced from an untracked secrets file on the server.
+# See secrets.env.example. On the phone this file inlines the real values.
+. /data/data/com.termux/files/home/secrets.env
+
+export KC_BOOTSTRAP_ADMIN_USERNAME
+export KC_BOOTSTRAP_ADMIN_PASSWORD
+export KC_DB_PASSWORD
+export KC_HOSTNAME
+exec /data/data/com.termux/files/home/keycloak/bin/kc.sh start
